@@ -8,6 +8,7 @@ public class Uni {
         for(int i = 0; i <= 19; ++i){
             int gradeValue = (int)(10 + Math.random()*(100 - 10));
             grades[i] = new Grade(gradeValue, "Math");
+            System.out.println("~~~" + grades[i].getGrade());
         }
 
         /*
@@ -18,6 +19,33 @@ public class Uni {
                 break;
             else System.out.println(g.toString());
         }
+
+        /*
+         * Testing the second point
+         */
+        System.out.println(prof.getMeanGrade(grades));
+
+        /*
+         * Testing the third point
+         */
+        Grade[] rounds = prof.getRoundedWithoutAltering(grades);
+        for(Grade round: rounds){
+            System.out.println(round.toString() );
+        }
+        System.out.println("****************************");
+        for(Grade grade: grades){
+            System.out.println(grade.toString() );
+        }
+
+
+        /*
+         * Testing the fourth point
+         */
+        Grade maxG = prof.getMaximum(grades);
+        System.out.println("\nMaxim\n" + maxG.toString());
+        
     }
+
+    
     
 }
