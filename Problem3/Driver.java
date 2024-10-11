@@ -13,5 +13,11 @@ public class Driver {
         System.out.println(n1.toString());
         System.out.println(n2.toString());
         System.out.println(arithmetic.sumOf2(n1, n2).toString());
+        Number diff = arithmetic.diffOf2(n1, n2);
+        try{
+            System.out.println(diff.toString());
+        }catch(NullPointerException exp){
+            System.out.println("The difference is imposible");
+        }
     }
 }
