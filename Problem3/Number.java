@@ -59,4 +59,17 @@ public class Number {
         }
         return res;
     }
+
+    public static int generateNumberOfNPositionsOffseted(Number num, int n, int pos, int... initialVal){
+        int res = 0;
+        for(int number: initialVal)
+            res = number;
+        if(num.length < n)
+            throw new Error("length of a Number object has to be bigger in order to be able to generate from it an int of n positions");
+        for(int i = pos; i < num.length && n != 0; ++i){
+            res = res * 10 + num.degets[i];
+            n--;
+        }
+        return res;
+    }
 }

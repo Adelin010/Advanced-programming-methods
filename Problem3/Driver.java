@@ -19,5 +19,11 @@ public class Driver {
         }catch(NullPointerException exp){
             System.out.println("The difference is imposible");
         }
+
+        System.out.println("Multiplication: \n" + arithmetic.multiplication(n1, 5).toString());
+        System.out.println("DIVISION: ");
+        for(int i = 1; i < 10; ++i){
+            System.out.println(arithmetic.division(n1, i));
+        }
     }
 }

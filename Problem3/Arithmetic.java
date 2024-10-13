@@ -93,4 +93,51 @@ public class Arithmetic {
 
         return new Number(values);
     }
+
+    public Number multiplication(Number num, int scalar){
+        int[] values = new int[(int)(num.length*1.5)];
+        int idx = values.length - 1;
+        Arrays.fill(values, -1);
+        //flag for carry
+        int OC = 0;
+        for(int i = num.length-1; i >= 0; --i){
+            int mult = ((scalar * num.degets[i]) + OC);
+            values[idx--] = mult % 10;
+            OC = mult / 10;
+        }
+        if(OC != 0)
+            values[idx] = OC;
+        return new Number(values);
+    }
+
+    public Number division(Number n1, int scalar){
+        int[] values = new int[n1.length];
+        Arrays.fill(values, -1);
+        int idxValues = 0;
+
+        if(n1.length < 1)
+            throw new Error("Incapable to make a division, Divided to short !");
+        //index to the current deget to be divided
+        int idx = 0;
+        int rest = 0;
+        //Generate the number of length = scalars number of degets 
+        //if the number generated is lower than we will add the next deget
+        //the function is made so in the future will be able to get a n2.length or n2.length+1
+        //argument of a object of type Number to make division between two Number objects
+        while(idx < n1.length){
+            int divided = Number.generateNumberOfNPositionsOffseted(n1, 1, idx, rest);
+            if(divided < scalar && idx  == 0){
+                divided = Number.generateNumberOfNPositionsOffseted(n1, 2, idx, rest);
+                idx += 2;
+                rest = divided % scalar;
+                values[idxValues++] = divided / scalar;
+                continue;
+            }
+            rest = divided % scalar;
+            values[idxValues++] = divided / scalar;
+            idx += 1;
+        }
+
+        return new Number(values);
+    }
 }
