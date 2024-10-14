@@ -4,16 +4,16 @@ import java.util.Random;
 
 public class Electronic {
 
-    protected float price;
+    protected int price;
 
     public String toString(){
         return "The price is " + this.price;
     }  
     
     Electronic(){
-        this.price = new Random().nextFloat(100);
+        this.price = new Random().nextInt(100);
     }
-    Electronic(float price){
+    Electronic(int price){
         this.price = price;
     }
 

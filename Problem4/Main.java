@@ -25,7 +25,7 @@ public class Main {
         for(Electronic k: keyboards)
             System.out.println(k.toString());
 
-        System.out.println("Most expansive: " + getMostExpansive(usbs));
+        System.out.println("Most expansive: " + getMostExpansiveOfAll(usbs, keyboards));
         System.out.println("Cheapest: " + getCheapest(usbs));
 
 
@@ -33,27 +33,27 @@ public class Main {
          * Definning a comparator for the highest affordable price
          */
 
-        float buget = new Random().nextFloat(80) + 10;
+        int buget = new Random().nextInt(80) + 10;
         System.out.println("The buget is: " + buget);
 
-        Comparator<Float> highestAffordable = new Comparator<Float>() {
+        Comparator<Integer> highestAffordable = new Comparator<>() {
 
         
             @Override 
-            public int compare(Float f1, Float f2){
+            public int compare(Integer f1, Integer f2){
                 return f1.compareTo(f2);
             }
         };
 
-        float affordable = getMostExpansiveAffordable(usbs, buget, highestAffordable);
-        if(affordable < 0.00){
+        int affordable = getMostExpansiveAffordable(usbs, buget, highestAffordable);
+        if(affordable < 0){
             System.out.println("There is no object we can afford");
         }else{
             System.out.println("We can afford: " + affordable);
         }
 
         System.out.println("We can buy if there are enough money: ");
-        float canBuy = affordAllOfThem(keyboards, usbs, buget);
+        int canBuy = affordAllOfThem(keyboards, usbs, buget);
         if(canBuy != -1)
             System.out.println(canBuy);
         else
@@ -61,32 +61,36 @@ public class Main {
     }
 
 
-    private static float getMostExpansive(Electronic[] elecs){
+    private static int getMostExpansive(Electronic[] elecs){
         if(elecs.length == 0)
             throw new Error("The argument array is empty. Please provide values");
-        Optional<Float> res = Arrays.stream(elecs).map(elec -> elec.price).max(Float::compareTo);
+        Optional<Integer> res = Arrays.stream(elecs).map(elec -> elec.price).max(Integer::compareTo);
         return res.get();
     }
 
-    private static float getCheapest(Electronic[] elecs){
+    private static int getMostExpansiveOfAll(Electronic[] usbs, Electronic[] keyboards){
+        return Math.max(getMostExpansive(keyboards), getMostExpansive(usbs));
+    }
+
+    private static int getCheapest(Electronic[] elecs){
         if(elecs.length == 0)
             throw new Error("The argument array is empty. Please provide values");
-        Optional<Float> res = Arrays.stream(elecs).map(elec -> elec.price).min(Float::compareTo);
+        Optional<Integer> res = Arrays.stream(elecs).map(elec -> elec.price).min(Integer::compareTo);
         return res.get();
     }
 
-    private static float getMostExpansiveAffordable(Electronic[] elecs, float buget,Comparator<Float> highestAffordable){
+    private static int getMostExpansiveAffordable(Electronic[] elecs, int buget,Comparator<Integer> highestAffordable){
         if(elecs.length == 0)
             throw new Error("The argument array is empty. Please provide values");
-        Optional<Float> res = Arrays.stream(elecs).map(elec -> elec.price).filter(price -> price < buget).max(highestAffordable);
+        Optional<Integer> res = Arrays.stream(elecs).map(elec -> elec.price).filter(price -> price < buget).max(highestAffordable);
         if(!res.isPresent())
-            return (float)-1.00;
+            return (int)-1.00;
         
         return res.get();
     }
 
 
-    private static float affordAllOfThem(Electronic[] keyboards, Electronic[] usbs, float buget){
+    private static int affordAllOfThem(Electronic[] keyboards, Electronic[] usbs, int buget){
         /*
          * Use the TreeSet built on red-black balanced tree to add all the prices of 
          * an object in a sorted order
@@ -94,7 +98,7 @@ public class Main {
          * Complexity of for loop O(n)
          * Complexity of the entire process O(n*log n) 
          */
-        TreeSet<Float> keyb = new TreeSet<>();
+        TreeSet<Integer> keyb = new TreeSet<>();
         for(Electronic keyboard: keyboards){
             keyb.add(keyboard.price);
         }
@@ -108,15 +112,15 @@ public class Main {
          * Complexity of searching O(log n)
          * Whole Complexity O(n*log n)
          */
-        float keyboardPrice = -1;
-        float usbPrice = -1;
+        int keyboardPrice = -1;
+        int usbPrice = -1;
         for(Electronic usb: usbs){
             if(buget < usb.price)
                 continue;
             
-            float diff = buget - usb.price;
+            int diff = buget - usb.price;
             try{
-                float highPrice = keyb.lower(diff);
+                int highPrice = keyb.lower(diff);
                 if(highPrice > keyboardPrice){
                     usbPrice = usb.price;
                     keyboardPrice = highPrice;

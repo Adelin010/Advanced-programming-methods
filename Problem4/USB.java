@@ -7,7 +7,7 @@ public class USB extends Electronic{
     USB(){
         super();
     }
-    USB(float price){
+    USB(int price){
         super(price);
     }
 

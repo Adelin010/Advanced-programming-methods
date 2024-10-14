@@ -7,7 +7,7 @@ public class Keyboard extends Electronic{
     Keyboard(){
         super();
     }
-    Keyboard(float price){
+    Keyboard(int price){
         super(price);
     }
     
