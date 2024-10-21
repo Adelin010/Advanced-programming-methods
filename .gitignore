@@ -1,1 +1,2 @@
+#remove all .class files resulted after compilation
 *.class

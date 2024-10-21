@@ -43,6 +43,17 @@ public class Uni {
          */
         Grade maxG = prof.getMaximum(grades);
         System.out.println("\nMaxim\n" + maxG.toString());
+
+
+        int[] vect = {29, 37, 38, 41, 84, 67};
+        Grade[] gradesVect = new Grade[6];
+        for(int i = 0; i < 6; ++i){
+            gradesVect[i] = new Grade(vect[i], "saesrt");
+        }
+        System.out.println("\n\n\n");
+        for(Grade g1: prof.getWhatDoesnotPass(prof.getRoundedGrades(gradesVect))){
+            System.out.println(g1.toString());
+        }
         
     }
 

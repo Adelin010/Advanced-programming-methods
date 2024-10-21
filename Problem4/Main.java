@@ -58,6 +58,20 @@ public class Main {
             System.out.println(canBuy);
         else
             System.out.println("We can't buy");
+
+
+        System.out.println("\n\n\n");
+        Electronic[] tast = new Electronic[1];
+        tast[0] = new Electronic(60);
+        Electronic[] us = new Electronic[2];
+        us[0] = new Electronic(8);
+        us[1] = new Electronic(12);
+        int bug1 = 60;
+
+
+        int g = affordAllOfThem(tast, us, bug1);
+        System.out.println("Ultimu res\n");
+        System.out.println(g);
     }
 
 
@@ -131,6 +145,9 @@ public class Main {
             }
             
         }
+
+        if(usbPrice == -1 || keyboardPrice == -1)
+            return -1;
         return keyboardPrice + usbPrice;
 
     }
